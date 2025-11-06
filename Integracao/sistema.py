@@ -341,34 +341,3 @@ if __name__ == '__main__':
     print('If this passed, start using /register and /token to test auth-protected endpoints.')
 
 
-### RUN INSTRUCTIONS
-
-1) Create a virtualenv and install requirements:
-
-    python -m venv .venv
-    source .venv/bin/activate   # on Linux/Mac
-    .\.venv\Scripts\activate  # on Windows
-    pip install -r requirements.txt
-
-2) Create a `.env` file from the example or export the environment variables used.
-
-3) Start the app:
-
-    uvicorn main:app --reload
-
-4) Run the quick test (optional) in another terminal to verify health:
-
-    python tests/test_health_and_auth.py
-
-
-### NOTES ABOUT THE ORIGINAL ERROR
-
-- The error `NameError: name 'fastapi' is not defined` can appear if some code refers to the `fastapi` module object without importing it. In the original version the top-level explicit `import fastapi` was missing; the revised `main.py` adds `import fastapi` in addition to the specific imports to be defensive.
-- We also replaced dynamic `__import__('auth')` usage with a direct import of `decode_access_token` for clarity and to avoid subtle runtime problems.
-- `create_access_token` now converts the `exp` claim to an integer timestamp to avoid incompatibilities with some JWT libraries.
-
-If you still see the error after this change, please tell me:
-- the exact command you used to run the server, and
-- the full stack trace (copy-paste).  
-
-I can further debug environment issues (missing packages, wrong Python interpreter) if you paste the traceback.

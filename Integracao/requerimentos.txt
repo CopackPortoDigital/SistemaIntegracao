@@ -3,3 +3,7 @@ uvicorn
 requests
 scikit-learn
 numpy
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+pydantic
